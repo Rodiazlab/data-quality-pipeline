@@ -1,0 +1,9 @@
+customer_id;full_name;email;country;signup_date;total_spend
+C001;Ana Lopez;ana.lopez@example.com;Spain;2026-01-15;1250.50
+C002;Luis Martin;luis.martinexample.com;ES;15/02/2026;890,40
+C003;  Maria Garcia  ;maria.garcia@example.com;espana;2026/03/10;500
+C003;Maria Garcia;maria.garcia@example.com;Spain;2026-03-10;500.00
+;Carlos Ruiz;carlos.ruiz@example.com;Spain;2026-04-05;750.25
+C005;Laura Sanchez;;France;05-05-2026;1100
+C006;Pedro Gomez;pedro.gomez@example.com;Portugal;31/02/2026;-50
+C007;SOFIA TORRES;SOFIA.TORRES@EXAMPLE.COM;spain;2026-06-20;2.300,75
