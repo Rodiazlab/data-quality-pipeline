@@ -2,8 +2,10 @@ from pathlib import Path
 
 import pandas as pd
 
-
 DATA_PATH = Path("data/raw/customers_sample.csv")
+
+def find_missing_values(dataframe, column_name):
+    return dataframe[column_name].isna()
 
 df = pd.read_csv(DATA_PATH, sep=";")
 
