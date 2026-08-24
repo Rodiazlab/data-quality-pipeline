@@ -2,6 +2,7 @@ import pandas as pd
 
 from src.validation import (
     find_duplicates,
+    find_invalid_emails,
     find_missing_values,
 )
 
@@ -35,6 +36,29 @@ def test_find_duplicates_marks_all_repeated_values():
     result = find_duplicates(
         dataframe,
         "customer_id",
+    )
+
+    assert result.tolist() == [
+        False,
+        True,
+        True,
+        False,
+    ]
+def test_find_invalid_emails_detects_incorrect_formats():
+    dataframe = pd.DataFrame(
+        {
+            "email": [
+                "ana@example.com",
+                "luisexample.com",
+                "maria@example",
+                None,
+            ],
+        }
+    )
+
+    result = find_invalid_emails(
+        dataframe,
+        "email",
     )
 
     assert result.tolist() == [

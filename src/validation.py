@@ -12,3 +12,17 @@ def find_duplicates(
     column_name: str,
 ) -> pd.Series:
     return dataframe[column_name].duplicated(keep=False)
+
+def find_invalid_emails(
+    dataframe: pd.DataFrame,
+    column_name: str,
+) -> pd.Series:
+    email_values = dataframe[column_name]
+
+    valid_format = email_values.str.fullmatch(
+        r"[^@\s]+@[^@\s]+\.[^@\s]+",
+        na=False,
+    )
+
+    return email_values.notna() & ~valid_format
+

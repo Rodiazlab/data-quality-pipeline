@@ -4,6 +4,7 @@ import pandas as pd
 
 from src.validation import (
     find_duplicates,
+    find_invalid_emails,
     find_missing_values,
 )
 
@@ -47,9 +48,9 @@ duplicated_customer_id = df["customer_id"].duplicated(keep=False)
 print("\nREGISTROS CON CUSTOMER DUPLICADO")
 print(df[duplicated_customer_id]) 
 
-invalid_email = (
-    df["email"].notna()
-    & ~df["email"].str.contains("@", regex=False, na=False)
+invalid_email = find_invalid_emails(
+    df,
+    "email",
 )
 
 print("\nREGISTROS CON EMAIL INVALIDO")
