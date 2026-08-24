@@ -2,10 +2,13 @@ from pathlib import Path
 
 import pandas as pd
 
-DATA_PATH = Path("data/raw/customers_sample.csv")
+from src.validation import (
+    find_duplicates,
+    find_missing_values,
+)
 
-def find_missing_values(dataframe, column_name):
-    return dataframe[column_name].isna()
+
+DATA_PATH = Path("data/raw/customers_sample.csv")
 
 df = pd.read_csv(DATA_PATH, sep=";")
 
