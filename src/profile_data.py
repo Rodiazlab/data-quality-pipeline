@@ -8,6 +8,8 @@ from src.validation import (
     find_missing_values,
 )
 
+from src.cleaning import parse_mixed_dates
+
 
 DATA_PATH = Path("data/raw/customers_sample.csv")
 
@@ -56,11 +58,9 @@ invalid_email = find_invalid_emails(
 print("\nREGISTROS CON EMAIL INVALIDO")
 print(df[invalid_email])
 
-parsed_dates = pd.to_datetime(
-    df["signup_date"],
-    format="mixed",
-    dayfirst=True,
-    errors="coerce",
+parsed_dates = parse_mixed_dates(
+    df,
+    "signup_date",
 )
 
 invalid_signup_date = parsed_dates.isna()
@@ -165,8 +165,6 @@ clean_df["total_spend"] = parsed_amounts.loc[~quarantine_mask]
 print("\nDATOS VALIDOS")
 print(clean_df)
 
-print("\nDATOS EN CUARENTENA")
-print(quarantine_df)
 
 CLEAN_PATH = Path("data/clean/customers_clean.csv")
 QUARANTINE_PATH = Path("data/quarantine/customers_quarantine.csv")
