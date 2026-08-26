@@ -8,7 +8,10 @@ from src.validation import (
     find_missing_values,
 )
 
-from src.cleaning import parse_mixed_dates
+from src.cleaning import (
+     normalize_amounts,
+     parse_mixed_dates,
+)
 
 
 DATA_PATH = Path("data/raw/customers_sample.csv")
@@ -68,27 +71,9 @@ invalid_signup_date = parsed_dates.isna()
 print("\nREGISTROS CON FECHA INVALIDO")
 print(df[invalid_signup_date])
 
-amount_text = df["total_spend"].str.strip()
-
-uses_european_format = amount_text.str.contains(
-    ",",
-    regex=False,
-    na=False,
-)
-
-print("\nIMPORTES CON FORMATO EUROPEO")
-print(df.loc[uses_european_format, ["customer_id", "total_spend"]])
-
-normalized_amount_text = amount_text.copy()
-normalized_amount_text.loc[uses_european_format] = (
-    amount_text.loc[uses_european_format]
-    .str.replace(".", "", regex=False)
-    .str.replace(",", ".", regex=False)
-)
-
-parsed_amounts = pd.to_numeric(
-    normalized_amount_text,
-    errors="coerce",
+parsed_amounts = normalize_amounts(
+    df,
+    "total_spend",
 )
 
 amount_comparison = pd.DataFrame(
