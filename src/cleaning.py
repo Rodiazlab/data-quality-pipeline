@@ -1,7 +1,7 @@
 import pandas as pd
 
 
-def parse_mixed_dates(
+def parse_mixed_dates( # parsea las fechas en un DataFrame y devuelve una serie con las fechas parseadas.
     dataframe: pd.DataFrame,
     column_name: str,
 ) -> pd.Series:
@@ -11,7 +11,7 @@ def parse_mixed_dates(
         dayfirst=True,
         errors="coerce",
     )
-def normalize_amounts(
+def normalize_amounts( # normaliza los montos en un DataFrame y devuelve una serie con los montos parseados.
     dataframe: pd.DataFrame,
     column_name: str,
 ) -> pd.Series:
