@@ -13,6 +13,9 @@ from src.cleaning import (
      parse_mixed_dates,
 )
 
+from src.classification import classify_records
+
+
 
 DATA_PATH = Path("data/raw/customers_sample.csv")
 
@@ -74,6 +77,12 @@ print(df[invalid_signup_date])
 parsed_amounts = normalize_amounts(
     df,
     "total_spend",
+) 
+
+quality_issues = classify_records(
+    df,
+    parsed_dates,
+    parsed_amounts,
 )
 
 amount_comparison = pd.DataFrame(
@@ -97,15 +106,8 @@ print(
     ]
 )
 
-quarantine_mask = (
-    missing_customer_id
-    | missing_email
-    | duplicated_customer_id
-    | invalid_email
-    | invalid_signup_date
-    | invalid_amount
-    | negative_amount
-)
+quarantine_mask = quality_issues.ne("")
+
 
 print("\nRESUMEN DE CLASIFICACION")
 print(f"Registros validos: {(~quarantine_mask).sum()}")
@@ -154,28 +156,6 @@ print(clean_df)
 CLEAN_PATH = Path("data/clean/customers_clean.csv")
 QUARANTINE_PATH = Path("data/quarantine/customers_quarantine.csv")
 
-quality_rules = {
-    "MISSING_CUSTOMER_ID": missing_customer_id,
-    "MISSING_EMAIL": missing_email,
-    "DUPLICATED_CUSTOMER_ID": duplicated_customer_id,
-    "INVALID_EMAIL": invalid_email,
-    "INVALID_SIGNUP_DATE": invalid_signup_date,
-    "INVALID_AMOUNT": invalid_amount,
-    "NEGATIVE_AMOUNT": negative_amount,
-}
-
-quality_issues = pd.Series(
-    "",
-    index=df.index,
-    dtype="string",
-)
-
-for issue_name, condition in quality_rules.items():
-    quality_issues.loc[condition] = (
-        quality_issues.loc[condition]
-        + issue_name
-        + "|"
-    )
 
 quarantine_df["quality_issues"] = (
     quality_issues.loc[quarantine_mask]

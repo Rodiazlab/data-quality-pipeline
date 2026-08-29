@@ -14,7 +14,6 @@ def classify_records(
     parsed_amounts: pd.Series,
 ) -> pd.Series: 
    
-
     quality_issues = pd.Series( 
         "",
         index=dataframe.index,
@@ -67,6 +66,12 @@ def classify_records(
         quality_issues.loc[invalid_amount]
         + "INVALID_AMOUNT|"
     )   
+    negative_amount = parsed_amounts < 0 # busca registros con montos negativos y devuelve una serie de booleanos indicando si el monto es negativo o no.
+    quality_issues.loc[negative_amount] = ( # después, para los registros con montos negativos, se agrega la etiqueta "NEGATIVE_AMOUNT" a la serie de calidad de datos.             
+        quality_issues.loc[negative_amount]
+        + "NEGATIVE_AMOUNT|"
+    )       
+
 
     return quality_issues.str.rstrip("|")
 
