@@ -36,4 +36,9 @@ El proyecto utiliza las siguientes capas:
 
 ## Estado
 
-Proyecto en desarrollo.
+- Sprint 1 completado: validación y limpieza ✅
+- Sprint 2 completado: clasificación e integración ✅
+- Pipeline reutilizable mediante `process_customers()` ✅
+- Separación entre `clean` y `quarantine` ✅
+- 11 tests automáticos, incluido uno de integración ✅
+- Persistencia en SQL: pendiente ⌛️
