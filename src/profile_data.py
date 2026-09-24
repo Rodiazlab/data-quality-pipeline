@@ -4,6 +4,8 @@ import pandas as pd
 
 from src.pipeline import process_customers
 
+from src.persistence import connect_to_database, save_customers
+
 
 DATA_PATH = Path("data/raw/customers_sample.csv")
 
@@ -63,3 +65,10 @@ quarantine_df.to_csv(
 
 print(f"\nArchivo limpio creado: {CLEAN_PATH}")
 print(f"Archivo de cuarentena creado: {QUARANTINE_PATH}")
+
+connection = connect_to_database()
+
+try:
+    save_customers(connection, clean_df)
+finally:
+    connection.close()

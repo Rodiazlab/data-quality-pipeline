@@ -40,5 +40,6 @@ El proyecto utiliza las siguientes capas:
 - Sprint 2 completado: clasificación e integración ✅
 - Pipeline reutilizable mediante `process_customers()` ✅
 - Separación entre `clean` y `quarantine` ✅
-- 11 tests automáticos, incluido uno de integración ✅
-- Persistencia en SQL: pendiente ⌛️
+- 15 tests automáticos, incluido uno de integración ✅
+- Persistencia en SQL: carga en MySQL está integrada con éxito, permite insertar nuevos clientes y actualizar los ya existentes.
+- La insercción, actualización y repetición de la carga se han comprobado manualmente en MySQL.
