@@ -6,12 +6,18 @@ from src.pipeline import process_customers
 
 from src.persistence import connect_to_database, save_customers
 
+from src.metrics import build_quality_summary
+
 
 DATA_PATH = Path("data/raw/customers_sample.csv")
 
 df = pd.read_csv(DATA_PATH, sep=";")
 
 clean_df, quarantine_df = process_customers(df)
+quality_summary = build_quality_summary(df, clean_df, quarantine_df)
+
+print("\nMÉTRICAS DE CALIDAD")
+print(quality_summary)
 
 print("DIMENSIONES")
 print(f"Filas: {df.shape[0]}")
