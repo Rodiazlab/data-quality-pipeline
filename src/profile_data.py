@@ -6,15 +6,23 @@ from src.pipeline import process_customers
 
 from src.persistence import connect_to_database, save_customers
 
-from src.metrics import build_quality_summary
+from src.metrics import build_quality_summary, save_quality_summary
+
+from uuid import uuid4
 
 
 DATA_PATH = Path("data/raw/customers_sample.csv")
+METRICS_DIR = Path("data/metrics")
+METRICS_DIR.mkdir(parents=True, exist_ok=True)
 
 df = pd.read_csv(DATA_PATH, sep=";")
 
 clean_df, quarantine_df = process_customers(df)
 quality_summary = build_quality_summary(df, clean_df, quarantine_df)
+run_id = uuid4().hex
+summary_path = METRICS_DIR / f"quality_summary_{run_id}.json"
+save_quality_summary(quality_summary, summary_path)
+print(f"\nResumen de calidad guardado en: {summary_path}")
 
 print("\nMÉTRICAS DE CALIDAD")
 print(quality_summary)

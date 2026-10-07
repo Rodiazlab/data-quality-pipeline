@@ -24,6 +24,7 @@ El proyecto utiliza las siguientes capas:
 - `tests`: pruebas automaticas.
 - `sql`: modelos y consultas SQL.
 - `docs`: documentacion tecnica y Scrum.
+- `data/metrics`: resúmenes de calidad por ejecución, generados localmente y excluidos de Git.
 
 ## Tecnologias
 
@@ -40,6 +41,9 @@ El proyecto utiliza las siguientes capas:
 - Sprint 2 completado: clasificación e integración ✅
 - Pipeline reutilizable mediante `process_customers()` ✅
 - Separación entre `clean` y `quarantine` ✅
-- 15 tests automáticos, incluido uno de integración ✅
+- 21 tests automáticos, incluido uno de integración ✅
 - Persistencia en SQL: carga en MySQL está integrada con éxito, permite insertar nuevos clientes y actualizar los ya existentes.
 - La insercción, actualización y repetición de la carga se han comprobado manualmente en MySQL.
+- Métricas de calidad: recuentos de registros recibidos, válidos y en cuarentena, porcentajes e incidencias por motivo.
+- Resumen de calidad guardado en un archivo JSON distinto por ejecución.
+- Pruebas manuales del guardado: dos ejecuciones generan dos resúmenes y conservan el historial.
