@@ -94,4 +94,8 @@ Para ejecutar el pipeline completo necesitas un servidor MySQL activo.
 
 El pipeline lee `data/raw/customers_sample.csv`, genera los CSV de datos válidos y cuarentena, guarda un resumen JSON en `data/metrics` y carga los registros válidos en MySQL.
 
-Cada ejecución genera un JSON con un nombre distinto. Los clientes existentes se actualizan por `customer_id`.
+Cada ejecución genera un JSON con un nombre distinto. Los clientes existentes se actualizan por `customer_id`
+
+## Datos de ejemplo
+
+El archivo `data/raw/customers_sample.csv` contiene datos ficticios creados para probar las reglas de calidad. No contiene información de clientes reales.
