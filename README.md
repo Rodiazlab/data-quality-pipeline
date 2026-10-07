@@ -31,7 +31,7 @@ El proyecto utiliza las siguientes capas:
 - Python
 - pandas
 - SQL
-- Power BI
+- Power BI (previsto; todavía no implementado)
 - Git
 - Scrum
 
@@ -47,3 +47,51 @@ El proyecto utiliza las siguientes capas:
 - Métricas de calidad: recuentos de registros recibidos, válidos y en cuarentena, porcentajes e incidencias por motivo.
 - Resumen de calidad guardado en un archivo JSON distinto por ejecución.
 - Pruebas manuales del guardado: dos ejecuciones generan dos resúmenes y conservan el historial.
+
+## Instalación y tests
+
+Desde la carpeta raíz del proyecto, crea y activa un entorno virtual en macOS o Linux:
+
+```bash
+python3 -m venv .venv
+source .venv/bin/activate
+```
+
+Instala las dependencias:
+
+```bash
+python -m pip install -r requirements.txt
+```
+
+Ejecuta los tests:
+
+```bash
+python -m pytest -v
+```
+
+Los tests utilizan una conexión MySQL simulada, por lo que no necesitan una base de datos activa.
+
+## Configuración de MySQL y ejecución
+
+Para ejecutar el pipeline completo necesitas un servidor MySQL activo.
+
+1. Crea una base de datos y, dentro de ella, ejecuta el script `sql/create_customers.sql` para crear la tabla `customers`.
+
+2. Copia `.env.example` a un archivo llamado `.env` y configura:
+   - `DB_HOST`: dirección del servidor.
+   - `DB_PORT`: puerto de MySQL.
+   - `DB_USER`: usuario con permisos sobre la base de datos.
+   - `DB_PASSWORD`: contraseña del usuario.
+   - `DB_NAME`: nombre de la base de datos creada.
+
+   El archivo `.env` contiene credenciales locales y está excluido de Git.
+
+3. Con el entorno virtual activado, ejecuta desde la raíz del proyecto:
+
+   ```bash
+   python -m src.profile_data
+   ```
+
+El pipeline lee `data/raw/customers_sample.csv`, genera los CSV de datos válidos y cuarentena, guarda un resumen JSON en `data/metrics` y carga los registros válidos en MySQL.
+
+Cada ejecución genera un JSON con un nombre distinto. Los clientes existentes se actualizan por `customer_id`.
