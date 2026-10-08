@@ -31,7 +31,7 @@ El proyecto utiliza las siguientes capas:
 - Python
 - pandas
 - SQL
-- Power BI (previsto; todavía no implementado)
+- Streamlit
 - Git
 - Scrum
 
@@ -47,6 +47,9 @@ El proyecto utiliza las siguientes capas:
 - Métricas de calidad: recuentos de registros recibidos, válidos y en cuarentena, porcentajes e incidencias por motivo.
 - Resumen de calidad guardado en un archivo JSON distinto por ejecución.
 - Pruebas manuales del guardado: dos ejecuciones generan dos resúmenes y conservan el historial.
+- Sprint 3 completado: persistencia en MySQL e integración con el pipeline ✅
+- Sprint 4 completado: métricas de calidad, resumen JSON por ejecución y tests ✅
+- Sprint 5 completado: lectura de archivos JSON y visualización en Streamlit.
 
 ## Instalación y tests
 
@@ -99,3 +102,27 @@ Cada ejecución genera un JSON con un nombre distinto. Los clientes existentes s
 ## Datos de ejemplo
 
 El archivo `data/raw/customers_sample.csv` contiene datos ficticios creados para probar las reglas de calidad. No contiene información de clientes reales.
+
+## Panel de calidad con Streamlit
+
+El panel permite seleccionar una ejecución y consultar:
+
+- Registros recibidos, válidos y en cuarentena.
+- Porcentajes de validez y cuarentena.
+- Incidencias por motivo.
+
+Lee los archivos `quality_summary_*.json` de `data/metrics/`.
+Si una ejecución no tiene incidencias, muestra un mensaje en lugar del gráfico.
+
+### Ejecutar el panel
+
+Desde la raíz del proyecto, con el entorno virtual activado:
+
+```bash
+python -m pip install -r requirements.txt
+python -m streamlit run app.py
+```
+
+Para detenerlo, pulsa Control + C en la terminal.
+
+Es necesario ejecutar primero el pipeline para generar las métricas.
